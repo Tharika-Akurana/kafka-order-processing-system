@@ -15,13 +15,13 @@ Dead Letter Queue (DLQ).
 | `dlq_viewer.py` | Lets you watch the DLQ topic live, for your demo |
 | `requirements.txt` | Python packages needed |
 
-## Step 1 : Install prerequisites
+## Step 1: Install prerequisites
 
 You need:
 1. **Docker Desktop** : https://www.docker.com/products/docker-desktop/
 2. **Python 3.9+** : check with `python3 --version`
 
-## Step 2 : Start Kafka locally
+## Step 2: Start Kafka locally
 
 In the project folder, run:
 
@@ -37,7 +37,7 @@ docker ps
 
 You should see `kafka` and `zookeeper` containers listed.
 
-## Step 3 : Set up Python
+## Step 3: Set up Python
 
 Create a virtual environment and install dependencies:
 
@@ -47,7 +47,7 @@ source venv/bin/activate        # on Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-## Step 4 : Run the producer
+## Step 4: Run the producer
 
 In one terminal (with the venv activated):
 
@@ -61,7 +61,7 @@ You'll see it printing a new random order every second, e.g.:
 [PRODUCER] Delivered to orders [partition 0]
 ```
 
-## Step 5 : Run the consumer
+## Step 5: Run the consumer
 
 In a **second terminal**:
 
@@ -84,7 +84,7 @@ Occasionally you'll see a simulated failure and retries:
 [CONSUMER] Sending order 55aa66bb to DLQ. Reason: max retries exceeded
 ```
 
-## Step 6 : Show the DLQ working
+## Step 6: Show the DLQ working
 
 In a **third terminal**:
 
@@ -96,7 +96,7 @@ python3 dlq_viewer.py
 This proves to your marker that failed messages really end up in the
 `orders-dlq` topic instead of being lost.
 
-## Step 7 : For live demo
+## Step 7: For live demo
 
 1. Start Kafka (`docker compose up -d`), wait ~30s.
 2. Run `producer.py` in one terminal.
@@ -110,11 +110,11 @@ This proves to your marker that failed messages really end up in the
 
 ## How each requirement is met
 
-- **Avro serialization** — `order.avsc` schema, encoded/decoded with `fastavro`.
-- **Real-time aggregation** — running average kept in `consumer.py`, updated per message.
-- **Retry logic** — both producer (on send failure) and consumer (on processing failure) retry up to `MAX_RETRIES` times before giving up.
-- **Dead Letter Queue** — messages that exhaust retries are published to `orders-dlq`.
-- **Live demo + Git repo** — see Steps 6–8 above.
+- **Avro serialization** - `order.avsc` schema, encoded/decoded with `fastavro`.
+- **Real-time aggregation** - running average kept in `consumer.py`, updated per message.
+- **Retry logic** - both producer (on send failure) and consumer (on processing failure) retry up to `MAX_RETRIES` times before giving up.
+- **Dead Letter Queue** - messages that exhaust retries are published to `orders-dlq`.
+- **Live demo + Git repo** - see Steps 6–8 above.
 
 ## Notes / things you can change to make it your own
 
