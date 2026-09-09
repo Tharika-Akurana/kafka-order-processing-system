@@ -1,4 +1,4 @@
-# Kafka Order Processing System — Assignment
+# Kafka Order Processing System - Assignment
 
 A Kafka-based system that produces and consumes Avro-encoded order
 messages, with real-time average calculation, retry logic, and a
@@ -15,13 +15,13 @@ Dead Letter Queue (DLQ).
 | `dlq_viewer.py` | Lets you watch the DLQ topic live, for your demo |
 | `requirements.txt` | Python packages needed |
 
-## Step 1 — Install prerequisites
+## Step 1 : Install prerequisites
 
 You need:
-1. **Docker Desktop** — https://www.docker.com/products/docker-desktop/
-2. **Python 3.9+** — check with `python3 --version`
+1. **Docker Desktop** : https://www.docker.com/products/docker-desktop/
+2. **Python 3.9+** : check with `python3 --version`
 
-## Step 2 — Start Kafka locally
+## Step 2 : Start Kafka locally
 
 In the project folder, run:
 
@@ -37,7 +37,7 @@ docker ps
 
 You should see `kafka` and `zookeeper` containers listed.
 
-## Step 3 — Set up Python
+## Step 3 : Set up Python
 
 Create a virtual environment and install dependencies:
 
@@ -47,7 +47,7 @@ source venv/bin/activate        # on Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-## Step 4 — Run the producer
+## Step 4 : Run the producer
 
 In one terminal (with the venv activated):
 
@@ -61,7 +61,7 @@ You'll see it printing a new random order every second, e.g.:
 [PRODUCER] Delivered to orders [partition 0]
 ```
 
-## Step 5 — Run the consumer
+## Step 5 : Run the consumer
 
 In a **second terminal**:
 
@@ -84,7 +84,7 @@ Occasionally you'll see a simulated failure and retries:
 [CONSUMER] Sending order 55aa66bb to DLQ. Reason: max retries exceeded
 ```
 
-## Step 6 — (Optional but recommended) Show the DLQ working
+## Step 6 : Show the DLQ working
 
 In a **third terminal**:
 
@@ -96,36 +96,12 @@ python3 dlq_viewer.py
 This proves to your marker that failed messages really end up in the
 `orders-dlq` topic instead of being lost.
 
-## Step 7 — Set up Git and submit
-
-```bash
-git init
-git add .
-git commit -m "Kafka order processing system with Avro, retry logic, and DLQ"
-```
-
-Create an empty repository on GitHub, then:
-
-```bash
-git remote add origin <your-repo-url>
-git branch -M main
-git push -u origin main
-```
-
-Add a `.gitignore` first so you don't commit the virtual environment:
-
-```
-venv/
-__pycache__/
-*.pyc
-```
-
-## Step 8 — For your live demo
+## Step 7 : For live demo
 
 1. Start Kafka (`docker compose up -d`), wait ~30s.
 2. Run `producer.py` in one terminal.
-3. Run `consumer.py` in another — point out the running average updating live.
-4. Run `dlq_viewer.py` in a third — wait for a simulated failure and show the
+3. Run `consumer.py` in another, point out the running average updating live.
+4. Run `dlq_viewer.py` in a third, wait for a simulated failure and show the
    message appearing in the DLQ.
 5. Briefly explain: Avro schema (`order.avsc`) defines the message
    structure; `fastavro` encodes/decodes it to compact binary; retry
